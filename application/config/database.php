@@ -72,13 +72,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
+//db_file_txt에 DB정보 저장 서버에 저장시 권한 변경
+$fp = fopen("./application/config/db_file.txt","r");
+$db_file=array();
+while( !feof($fp) ){
+	array_push($db_file, trim(fgets($fp)));
+}
+fclose($fp);
 
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'username' => $db_file[0],
+	'password' => $db_file[1],
+	'database' => $db_file[2],
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
