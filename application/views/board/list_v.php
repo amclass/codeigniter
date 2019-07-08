@@ -30,5 +30,10 @@
         <?}
       ?>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='5'><?=$pagination;?></td>
+      </tr>
+    </tfoot>
   </table>
 </article>
