@@ -159,6 +159,7 @@ $config['composer_autoload'] = FALSE;
 |
 */
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = '가-힣 a-z 0-9~%.:_\-()@!+=';
 
 /*
 |--------------------------------------------------------------------------

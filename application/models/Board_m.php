@@ -6,14 +6,20 @@ class Board_m extends CI_Model {
 	function __construct() {
 	    parent::__construct();
 	}
-  function get_list($table="ci_board",$type='',$offset='',$limit=''){
+  function get_list($table="ci_board",$type='',$offset='',$limit='',$search_word=''){
+		$sword='';
+		if($search_word !=''){
+			$sword=" where subject like '%".$search_word."%' or contents like '%".$search_word."%' ";
+		}
+
+
 		$limit_query='';
 		if($limit !='' || $offset != ''){
 			$limit_query=" limit ".$offset.",".$limit;
 		}
 
 
-    $sql="select * from ".$table." order by board_id desc ".$limit_query;
+    $sql="select * from ".$table.$sword." order by board_id desc ".$limit_query;
     $query=$this->db->query($sql);
 		if($type=="count"){
 				$result=$query->num_rows();
