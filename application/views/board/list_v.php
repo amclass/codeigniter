@@ -14,21 +14,22 @@
     </thead>
     <tbody>
       <?
-        foreach ($list as $key => $value) {
-          ?>
+    foreach ($list as $key => $value) {
+        ?>
           <tr>
               <th scope="row">
                 <?=$value->board_id;?>
               </th>
               <td>
-                <a role="extrenal" href="/<?=$this->uri->segment(1)?>/view/<?=$this->uri->segment(3)?>/<?=$value->board_id?>"><?=$value->subject?></a>
+                <a role="extrenal" href="/codeigniter/<?=$this->uri->segment(1)?>/view/<?=$this->uri->segment(3)?>/board_id/<?=$value->board_id?>/<?=$this->uri->segment(5)?>"><?=$value->subject?></a>
               </td>
               <td><?=$value->user_name?></td>
               <td><?=$value->hits?></td>
               <td><?=$value->reg_date?></td>
           </tr>
-        <?}
-      ?>
+        <?
+    }
+    ?>
     </tbody>
     <tfoot>
       <tr>

@@ -25,5 +25,16 @@
           <td><?=$data->reg_date?></td>
       </tr>
     </tbody>
+    <tfoot>
+    <tr>
+    <th colspan='4'>
+    	<a href="/codeigniter/board/lists/<?=$this->uri->segment(3);?>/page/<?=$this->uri->segment(7)?>" class='btn btn-primary'>목록</a>
+    	<a href="/codeigniter/board/edit/<?=$this->uri->segment(3);?>/board_id/<?=$this->uri->segment(5)?>/page/<?=$this->uri->segment(7)?>" class='btn btn-warning'>수정</a>
+    	<a href="/codeigniter/board/delete/<?=$this->uri->segment(3);?>/page/<?=$this->uri->segment(7)?>" class='btn btn-danger'>삭제</a>
+    	<a href="/codeigniter/board/write/<?=$this->uri->segment(3);?>/page/<?=$this->uri->segment(7)?>" class='btn btn-success'>쓰기</a>
+
+    </th>
+    </tr>
+    </tfoot>
   </table>
 </article>
