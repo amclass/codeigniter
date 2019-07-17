@@ -7,6 +7,7 @@
       <tr>
         <th scope="col">번호</th>
         <th scope="col">제목</th>
+        <th scope="col">내용</th>
         <th scope="col">작성자</th>
         <th scope="col">조회수</th>
         <th scope="col">작성일</th>
@@ -21,9 +22,11 @@
                 <?=$value->board_id;?>
               </th>
               <td>
-                <a role="extrenal" href="/codeigniter/<?=$this->uri->segment(1)?>/view/<?=$this->uri->segment(3)?>/board_id/<?=$value->board_id?>/<?=$this->uri->segment(5)?>"><?=$value->subject?></a>
+                <a role="extrenal" href="/codeigniter/<?=$this->uri->segment(1)?>/view/<?=$this->uri->segment(3)?>/board_id/<?=$value->board_id?>/page/<?=$this->uri->segment(5)?>"><?=$value->subject?></a>
               </td>
+              <td><?=$value->contents?></td>
               <td><?=$value->user_name?></td>
+
               <td><?=$value->hits?></td>
               <td><?=$value->reg_date?></td>
           </tr>

@@ -58,4 +58,44 @@ class Board_m extends CI_Model
         $result = $this->db->get($table)->result_object();
         return $result[0];
     }
+
+    function insert_board($arrays)
+    {
+        $insert_array = array(
+            'board_pid' => 0,
+            'user_id' => "admin",
+            'user_name' => "관리자",
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents'],
+            'reg_date' => date("Y-m-d H:i:s")
+        );
+
+        $result = $this->db->insert($arrays['table'], $insert_array);
+        return $result;
+    }
+
+    function modify_board($arrays)
+    {
+        $insert_array = array(
+            'subject' => $arrays['subject'],
+            'contents' => $arrays['contents']
+        );
+
+        $where = array(
+            "board_id" => $arrays['board_id']
+        );
+
+        $result = $this->db->update($arrays['table'], $insert_array, $where);
+        return $result;
+    }
+
+    function delete_content($table, $board_id)
+    {
+        $delete_arr = array(
+            "board_id" => $board_id
+        );
+        $result = $this->db->delete($table, $delete_arr);
+
+        return $result;
+    }
 }

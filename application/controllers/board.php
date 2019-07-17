@@ -74,7 +74,11 @@ class Board extends CI_Controller
         for ($i = 0; $cnt > $i; $i ++) {
             if ($url[$i] == $key) {
                 $k = $i + 1;
-                return $url[$k];
+                if (array_key_exists($k, $url)) {
+                    return $url[$k];
+                } else {
+                    return "";
+                }
             }
         }
     }
@@ -121,17 +125,101 @@ class Board extends CI_Controller
 
         $this->load->view("board/view_v", $data);
     }
-    /*
-     * public function write()
-     * {
-     * echo "<meta http-equiv='Content-Type' content='text/html' charset='utf-8' />";
-     * // 글쓰기 성공시
-     * if ($_POST) {
-     * // 경고창 헬퍼 로딩
-     * $this->load->helper('alert');
-     * }
-     *
-     * $this->load->view("board/write_v");
-     * }
-     */
+
+    public function write()
+    {
+        echo "<meta http-equiv='Content-Type' content='text/html' charset='utf-8' />";
+        // 글쓰기 성공시
+        if ($_POST) {
+            // 경고창 헬퍼 로딩
+            $this->load->helper('alert');
+            // 주소 중에서 page세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
+            $uri_array = $this->segment_explode($this->uri->uri_string());
+
+            if (in_array('page', $uri_array)) {
+                $pages = urldecode($this->url_explode($uri_array, 'page'));
+            } else {
+                $pages = 1;
+            }
+            if (! $this->input->post('subject', true) && ! $this->input->post('contents', true)) {
+                alert("비정상적인 접근입니다.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            }
+            $write_data = array(
+                'subject' => $this->input->post('subject', true),
+                'contents' => $this->input->post('contents', true),
+                'table' => $this->uri->segment(3)
+            );
+            $result = $this->board_m->insert_board($write_data);
+
+            if ($result) {
+                // 글 작성 성공시 게시물 목록으로
+                alert("입력되었습니다.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            } else {
+                alert("다시 입력해주세요.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            }
+        } else {
+            $this->load->view("board/write_v");
+        }
+    }
+
+    function edit()
+    {
+        echo "<meta http-equiv='Content-Type' content='text/html' charset='utf-8' />";
+        // 글쓰기 성공시
+        if ($_POST) {
+            // 경고창 헬퍼 로딩
+            $this->load->helper('alert');
+            // 주소 중에서 page세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
+            $uri_array = $this->segment_explode($this->uri->uri_string());
+
+            if (in_array('page', $uri_array)) {
+                $pages = urldecode($this->url_explode($uri_array, 'page'));
+            } else {
+                $pages = 1;
+            }
+            if (! $this->input->post('subject', true) && ! $this->input->post('contents', true)) {
+                alert("비정상적인 접근입니다.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            }
+            $write_data = array(
+                'subject' => $this->input->post('subject', true),
+                'contents' => $this->input->post('contents', true),
+                'table' => $this->uri->segment(3),
+                'board_id' => $this->uri->segment(5)
+            );
+            $result = $this->board_m->modify_board($write_data);
+
+            if ($result) {
+                // 글 작성 성공시 게시물 목록으로
+                alert("입력되었습니다.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            } else {
+                alert("다시 입력해주세요.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $pages);
+                exit();
+            }
+        } else {
+            $idx = $this->uri->segment(5);
+            $table = $this->uri->segment(3);
+            $data['data'] = $this->board_m->get_view($table, $idx);
+
+            $this->load->view("board/modify_v", $data);
+        }
+    }
+
+    function delete()
+    {
+        echo "<meta http-equiv='Content-Type' content='text/html' charset='utf-8' />";
+        $this->load->helper('alert');
+        $result = $this->board_m->delete_content($this->uri->segment(3), $this->uri->segment(5));
+        if ($result) {
+            alert("삭제되었습니다.", "/codeigniter/board/lists/" . $this->uri->segment(3) . "/page/" . $this->uri->segment(7));
+            exit();
+        } else {
+            alert("삭제되었습니다.", "/codeigniter/board/view/" . $this->uri->segment(3) . "/board_id/" . $this->uri->segment(5) . "/page/" . $this->uri->segment(7));
+            exit();
+        }
+    }
 }
