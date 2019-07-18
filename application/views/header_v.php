@@ -8,8 +8,8 @@
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
    crossorigin="anonymous"></script>
-  <script src="<?php echo base_url(); ?>include/js/bootstrap.js"></script>
-  <link rel="stylesheet" href="<?php echo base_url(); ?>include/css/bootstrap.css">
+  <script src="/codeigniter/include/js/bootstrap.js"></script>
+  <link rel="stylesheet" href="/codeigniter/include/css/bootstrap.css">
   <script>
   $(document).ready(function(){
     $("#search_btn").click(function(){
