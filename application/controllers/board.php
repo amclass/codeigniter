@@ -128,9 +128,14 @@ class Board extends CI_Controller
 
     public function write()
     {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules("subject", "제목", "required");
+        $this->form_validation->set_rules("contents", "내용", "required");
+
         echo "<meta http-equiv='Content-Type' content='text/html' charset='utf-8' />";
         // 글쓰기 성공시
-        if ($_POST) {
+        if ($this->form_validation->run() == true) {
             // 경고창 헬퍼 로딩
             $this->load->helper('alert');
             // 주소 중에서 page세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
