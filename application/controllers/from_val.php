@@ -21,6 +21,7 @@ class From_val extends CI_Controller
             $this->{"{$method}"}();
         }
         $this->load->view("footer_v");
+        session_write_close();
     }
 
     /* 폼 검증 테스트 */

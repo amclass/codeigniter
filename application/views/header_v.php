@@ -34,6 +34,16 @@
     <blockquote>
       <p>만들면서 배우는 CodeIgniter<p>
         <small>실행 예제</small>
+        <p>
+        <?php
+        if ($this->session->userdata("logged_in") == true) {
+            echo $this->session->userdata('username') . "님 환영합니다.";
+            echo "<a href='/codeigniter/auth/logout'>로그아웃</a>";
+        } else {
+            echo "<a href='/codeigniter/auth/login'>login</a>";
+        }
+        ?>
+        </p>
     </blockquote>
   </header>
   <nav>
