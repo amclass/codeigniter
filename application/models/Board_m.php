@@ -67,7 +67,8 @@ class Board_m extends CI_Model
             'user_name' => "관리자",
             'subject' => $arrays['subject'],
             'contents' => $arrays['contents'],
-            'reg_date' => date("Y-m-d H:i:s")
+            'reg_date' => date("Y-m-d H:i:s"),
+            'user_id' => $arrays['user_name']
         );
 
         $result = $this->db->insert($arrays['table'], $insert_array);
@@ -97,5 +98,15 @@ class Board_m extends CI_Model
         $result = $this->db->delete($table, $delete_arr);
 
         return $result;
+    }
+
+    function write_check()
+    {
+        $table = $this->uri->segment(3);
+        $board_id = $this->uri->segment(5);
+
+        $sql = "select user_id from " . $table . " where board_id='" . $board_id . "' ";
+        $query = $this->db->query($sql);
+        return $query->row();
     }
 }
